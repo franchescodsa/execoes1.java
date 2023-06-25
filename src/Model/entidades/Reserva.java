@@ -6,10 +6,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Reserva {
     private Integer numeroQuarto;
-private Date checkIn;
+    private Date checkIn;
     private Date checkOut;
 
-    private static SimpleDateFormat sdf= new SimpleDateFormat("dd/MM/yyyy");
+    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     public Reserva(Integer numeroQuarto, Date checkIn, Date checkOut) {
         this.numeroQuarto = numeroQuarto;
@@ -30,20 +30,31 @@ private Date checkIn;
     }
 
 
-
     public Date getCheckOut() {
         return checkOut;
     }
 
-    public long duracao(){
-        long diferenca = checkOut.getTime()- checkIn.getTime();
+    public long duracao() {
+        long diferenca = checkOut.getTime() - checkIn.getTime();
         return TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS);
     }
 
-    public void atualizarData(Date checkIn, Date checkOut){
-        this.checkIn= checkIn;
-        this.checkOut= checkOut;
+    public String atualizarData(Date checkIn, Date checkOut) {
+
+        Date now = new Date();
+
+        if (checkIn.before(now) || checkOut.before(now)) {
+            return "Data de reserva para atualizações sejam datas futuras";
+        }
+        if (!checkOut.after(checkIn)) {
+            return "A data de Check-Out deve ser posterior a de Check-In";
+        }
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        return null;
     }
+
+
 
     @Override
     public String toString() {
@@ -59,6 +70,5 @@ private Date checkIn;
                 ;
     }
 
-    public void updateDates(Date checkIn, Date checkOut) {
-    }
+
 }

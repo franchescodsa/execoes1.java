@@ -26,6 +26,7 @@ public class Main {
         System.out.print("Check-in data (dd/MM/yyyy): ");
         Date checkIn= sdf.parse(sc.next());
         System.out.print("Check-in data (dd/MM/yyyy): ");
+
         Date checkOut= sdf.parse(sc.next());
 
         if (!checkOut.after(checkIn)){
@@ -42,11 +43,20 @@ public class Main {
             System.out.print("Check-in data (dd/MM/yyyy): ");
             checkOut= sdf.parse(sc.next());
 
-            reserva.updateDates(checkIn, checkOut);
-            System.out.println("Reserva: "+ reserva);
+
+                String erro = reserva.atualizarData(checkIn, checkOut);
+                if (erro != null){
+                    System.out.println("Erro de reserva: " + erro);
+
+                }else{
+                    System.out.println("Reserva: "+reserva);
+                }
+
+
+
         }
 
-
+sc.close();
 
 
     }
